@@ -1,0 +1,107 @@
+@charset "UTF-8";
+/* line 1, static/scss/game.scss */
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #fff;
+  /* Background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: RubikGlitchPop;
+  letter-spacing: 5px;
+  font-size: 48px;
+  color: #e86100; }
+
+/* line 19, static/scss/game.scss */
+button {
+  font-family: PressStart;
+  width: 200px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 3px solid #ff4500;
+  border-radius: 500px;
+  color: #ff4500;
+  box-shadow: none;
+  cursor: pointer;
+  transition: 0.2s box-shadow ease-in-out; }
+
+/* line 42, static/scss/game.scss */
+button:hover {
+  box-shadow: 5px 5px; }
+
+/* line 48, static/scss/game.scss */
+.topnav {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: 50px; }
+  /* line 57, static/scss/game.scss */
+  .topnav .auth-btn {
+    position: absolute;
+    right: 50px; }
+    /* line 62, static/scss/game.scss */
+    .topnav .auth-btn #registerBtn {
+      width: 400px;
+      height: 40px; }
+
+/* line 74, static/scss/game.scss */
+#gameCanvas {
+  display: block;
+  background-image: url("/static/scss/галактика_3.jpg");
+  background-size: cover;
+  /* Adjust as needed */
+  background-position: center;
+  /* Adjust as needed */ }
+
+/* line 83, static/scss/game.scss */
+#startMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+/* line 91, static/scss/game.scss */
+#playerColorMenu {
+  display: none;
+  flex-direction: column;
+  align-items: center; }
+
+/* line 100, static/scss/game.scss */
+.style-btns {
+  margin-top: 30px; }
+  /* line 104, static/scss/game.scss */
+  .style-btns button {
+    width: 250px; }
+
+/* line 112, static/scss/game.scss */
+#colorSelectorContainer {
+  margin-top: 95x;
+  width: 400px; }
+
+/* line 119, static/scss/game.scss */
+.colorSelector {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 30px;
+  transition: transform 0.2s;
+  /* Added transform transition */
+  box-sizing: border-box;
+  /* Ensure border doesn't affect element size */
+  cursor: pointer; }
+
+/* line 136, static/scss/game.scss */
+.colorSelector:hover {
+  transform: scale(1.2); }
+
+/* line 142, static/scss/game.scss */
+#savePlayerColor {
+  margin-top: 70px; }
+
+/* line 149, static/scss/game.scss */
+.selected {
+  border: 2px solid black;
+  /* Black border around selected color */ }

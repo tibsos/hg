@@ -1,0 +1,113 @@
+@charset "UTF-8";
+/* line 1, static/scss/game.scss */
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #fff;
+  /* Background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: RubikGlitchPop;
+  letter-spacing: 5px;
+  font-size: 48px;
+  color: #e86100; }
+
+/* line 19, static/scss/game.scss */
+button {
+  font-family: PressStart;
+  border-radius: 500px; }
+
+/* line 32, static/scss/game.scss */
+#gameCanvas {
+  display: block;
+  background-image: url("/static/scss/галактика_3.jpg");
+  background-size: cover;
+  /* Adjust as needed */
+  background-position: center;
+  /* Adjust as needed */ }
+
+/* line 41, static/scss/game.scss */
+#startMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+/* line 49, static/scss/game.scss */
+#startButton {
+  width: 200px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 1px solid #ff4500;
+  cursor: pointer; }
+
+/* line 64, static/scss/game.scss */
+#colorSelectorContainer {
+  margin-top: 90px;
+  display: flex;
+  justify-content: space-between;
+  width: 200px; }
+
+/* line 73, static/scss/game.scss */
+.colorSelector {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+  /* Added transform transition */
+  box-sizing: border-box;
+  /* Ensure border doesn't affect element size */ }
+
+/* line 84, static/scss/game.scss */
+.colorSelector:hover {
+  transform: scale(1.2); }
+
+/* line 90, static/scss/game.scss */
+.selected {
+  border: 2px solid black;
+  /* Black border around selected color */ }
+
+/* line 96, static/scss/game.scss */
+.pulse {
+  border: 1px solid #fff; }
+
+/* line 102, static/scss/game.scss */
+.pulse:hover,
+.pulse:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em transparent; }
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover); } }
+
+/* line 115, static/scss/game.scss */
+.offset {
+  box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color); }
+  /* line 120, static/scss/game.scss */
+  .offset:hover, .offset:focus {
+    box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover); }
+
+/* line 138, static/scss/game.scss */
+.pulse {
+  --color: #000;
+  --hover: black; }
+
+/* line 145, static/scss/game.scss */
+button {
+  color: var(--color);
+  transition: 0.25s; }
+  /* line 150, static/scss/game.scss */
+  button:hover, button:focus {
+    border-color: var(--hover); }
+
+/* line 160, static/scss/game.scss */
+button {
+  background: none;
+  border: 2px solid;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 1em 2em; }

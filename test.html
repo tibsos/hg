@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="test.js"></script>
+
+</head>
+<body>
+
+    <canvas id="gameCanvas" height="900" width="900"></canvas>
+
+</body>
+
+<style>
+
+</style>
+
+<script>
+
+    var canvas = document.getElementById('gameCanvas')
+
+
+    var ctx  = canvas.getContext("2d");
+   
+    var img = new Image();
+    img.src = "i.jpg";
+
+    img.onload = function() {
+
+        ctx .drawImage(img, 0, 0);
+
+    };
+ 
+  
+
+</script>
+
+</html>

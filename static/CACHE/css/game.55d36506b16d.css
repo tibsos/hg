@@ -1,0 +1,39 @@
+/* line 2, static/scss/game.scss */
+.pulse:hover,
+.pulse:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em transparent; }
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover); } }
+
+/* line 15, static/scss/game.scss */
+.offset {
+  box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color); }
+  /* line 20, static/scss/game.scss */
+  .offset:hover, .offset:focus {
+    box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover); }
+
+/* line 38, static/scss/game.scss */
+.pulse {
+  --color: #ef6eae;
+  --hover: #ef8f6e; }
+
+/* line 45, static/scss/game.scss */
+button {
+  color: var(--color);
+  transition: 0.25s; }
+  /* line 49, static/scss/game.scss */
+  button:hover, button:focus {
+    border-color: var(--hover);
+    color: #fff; }
+
+/* line 57, static/scss/game.scss */
+button {
+  background: none;
+  border: 2px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 1em 2em; }

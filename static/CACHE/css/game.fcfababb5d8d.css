@@ -1,0 +1,116 @@
+/* line 1, static/scss/game.scss */
+.fill:hover,
+.fill:focus {
+  box-shadow: inset 0 0 0 2em var(--hover); }
+
+/* line 7, static/scss/game.scss */
+.pulse:hover,
+.pulse:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em transparent; }
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover); } }
+
+/* line 18, static/scss/game.scss */
+.close:hover,
+.close:focus {
+  box-shadow: inset -3.5em 0 0 0 var(--hover), inset 3.5em 0 0 0 var(--hover); }
+
+/* line 26, static/scss/game.scss */
+.raise:hover,
+.raise:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em); }
+
+/* line 33, static/scss/game.scss */
+.up:hover,
+.up:focus {
+  box-shadow: inset 0 -3.25em 0 0 var(--hover); }
+
+/* line 39, static/scss/game.scss */
+.slide:hover,
+.slide:focus {
+  box-shadow: inset 6.5em 0 0 0 var(--hover); }
+
+/* line 45, static/scss/game.scss */
+.offset {
+  box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color); }
+  /* line 50, static/scss/game.scss */
+  .offset:hover, .offset:focus {
+    box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover); }
+
+/* line 74, static/scss/game.scss */
+.fill {
+  --color: #a972cb;
+  --hover: #cb72aa; }
+
+/* line 74, static/scss/game.scss */
+.pulse {
+  --color: #ef6eae;
+  --hover: #ef8f6e; }
+
+/* line 74, static/scss/game.scss */
+.close {
+  --color: #ff7f82;
+  --hover: #ffdc7f; }
+
+/* line 74, static/scss/game.scss */
+.raise {
+  --color: #ffa260;
+  --hover: #e5ff60; }
+
+/* line 74, static/scss/game.scss */
+.up {
+  --color: #e4cb58;
+  --hover: #94e458; }
+
+/* line 74, static/scss/game.scss */
+.slide {
+  --color: #8fc866;
+  --hover: #66c887; }
+
+/* line 74, static/scss/game.scss */
+.offset {
+  --color: #19bc8b;
+  --hover: #1973bc; }
+
+/* line 81, static/scss/game.scss */
+button {
+  color: var(--color);
+  transition: 0.25s; }
+  /* line 85, static/scss/game.scss */
+  button:hover, button:focus {
+    border-color: var(--hover);
+    color: #fff; }
+
+/* line 93, static/scss/game.scss */
+body {
+  color: #fff;
+  background: #17181c;
+  font: 300 1em 'Fira Sans', sans-serif;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  display: flex; }
+
+/* line 108, static/scss/game.scss */
+button {
+  background: none;
+  border: 2px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 1em 2em; }
+
+/* line 117, static/scss/game.scss */
+h1 {
+  font-weight: 400; }
+
+/* line 119, static/scss/game.scss */
+code {
+  color: #e4cb58;
+  font: inherit; }
