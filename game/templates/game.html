@@ -35,11 +35,30 @@
 
         }
 
+        #gameCanvas {
+
+            background-image: url("{% static 'jpg/galaxy.jpg' %}")
+
+        }
+
     </style>
 
 </head>
 
 <body>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var audio = document.getElementById('song');
+            audio.play();
+        });
+
+    </script>
+
+    <audio  controls autoplay loop>
+        <source src="{% static 'mp3/song.mp3' %}" type="audio/mpeg">
+    </audio>
 
     <div class="topnav">
 
@@ -415,27 +434,21 @@
 
         }
 
-        /* Draw monsters (squares) */
+        /* Draw monsters (images) */
         function drawMonsters() {
 
+            const monsterImage = new Image();
+            monsterImage.src = "{% static 'svg/monster.svg' %}"; // Path to the monster image
+
             for (let monster of monsters) {
-
-                ctx.beginPath();
-                ctx.rect(monster.x, monster.y, monster.width, monster.height);
-                ctx.fillStyle = "#00FF00"; // Monster color
-                ctx.fill();
-                ctx.strokeStyle = "black"; // Black border
-                ctx.lineWidth = 2; // Border width
-                ctx.stroke();
-                ctx.closePath();
-
+                ctx.drawImage(monsterImage, monster.x, monster.y, monster.width, monster.height);
             }
             
         }
 
         function drawScore() {
 
-            ctx.font = "16px RubikGlitchPop";
+            ctx.font = "16px PressStart";
             ctx.fillStyle = "#FFF";
             ctx.fillText("Уровень: " + level, 20, 20);
 
