@@ -56,9 +56,9 @@
 
     </script>
 
-    <audio  controls autoplay loop>
+<!--     <audio  controls autoplay loop>
         <source src="{% static 'mp3/song.mp3' %}" type="audio/mpeg">
-    </audio>
+    </audio> -->
 
     <div class="topnav">
 
@@ -289,16 +289,11 @@
 
                 let balloon = balloons[i];
 
-                if (!balloon.collected) {
+                img = new Image();
+                img.src = "{% static 'svg/coin.svg' %}"
 
-                    ctx.beginPath();
-                    ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = balloon.color;
-                    ctx.fill();
-                    ctx.strokeStyle = "black"; // Black border
-                    ctx.lineWidth = 2; // Border width
-                    ctx.stroke();
-                    ctx.closePath();
+                if (!balloon.collected) {
+                    ctx.drawImage(img, balloon.x, balloon.y, 40, 40);
 
                 }
 
@@ -450,7 +445,7 @@
 
             ctx.font = "16px PressStart";
             ctx.fillStyle = "#FFF";
-            ctx.fillText("Уровень: " + level, 20, 20);
+            ctx.fillText("Уровень: " + level, 20, 40);
 
         }
 
