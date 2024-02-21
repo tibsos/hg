@@ -16,6 +16,7 @@ ALLOWED_HOSTS = [
 
 PROJECT_APPS = [
 
+    'player',
     'game',
 
 ]
@@ -60,7 +61,12 @@ ROOT_URLCONF = 'hg.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+
+            'game/templates',
+            'player/templates',
+
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -64,7 +64,7 @@
 
         <div class="logo"></div>
 
-        <a href="/register/" target="_blank" class="auth-btn">
+        <a href="/register" target="_blank" class="auth-btn">
 
             <button id="registerBtn">
 
@@ -215,6 +215,7 @@
         const totalBalloons = 10; // Static amount of balloons
         let balloons = [];
         let balloonsCollected = 0;
+        let balloonRadius = 20; // Balloon radius
 
         /* Monsters */
         let monsters = [];
@@ -289,54 +290,27 @@
 
                 let balloon = balloons[i];
 
-                img = new Image();
-                img.src = "{% static 'svg/coin.svg' %}"
-
                 if (!balloon.collected) {
-                    ctx.drawImage(img, balloon.x, balloon.y, 40, 40);
-
+                    ctx.beginPath();
+                    ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = balloon.color;
+                    ctx.fill();
+                    ctx.closePath();
                 }
 
             }
 
         }
 
-        /* Spawn balloons at random locations at the deges */
+        /* Spawn balloons at random locations */
         function spawnBalloons() {
 
             balloons = [];
-            const balloonRadius = 20; // Radius of the balloon
-            const minDistance = balloonRadius * 2; // Minimum distance between balloon centers
 
             for (let i = 0; i < totalBalloons; i++) {
 
-                let overlapping = true;
-                let newX, newY;
-
-                // Continue generating new positions until no overlap is found
-                while (overlapping) {
-
-                    overlapping = false; // Assume no overlap initially
-                    newX = Math.random() * (canvas.width - balloonRadius * 2) + balloonRadius;
-                    newY = Math.random() * (canvas.height - balloonRadius * 2) + balloonRadius;
-
-                    // Check against existing balloons
-                    for (let j = 0; j < balloons.length; j++) {
-
-                        const otherBalloon = balloons[j];
-                        const distance = Math.sqrt((newX - otherBalloon.x) ** 2 + (newY - otherBalloon.y) ** 2);
-
-                        // If distance between centers is less than minimum required, it's overlapping
-                        if (distance < minDistance) {
-
-                            overlapping = true;
-                            break;
-
-                        }
-
-                    }
-
-                }
+                let newX = Math.random() * (canvas.width - 2 * balloonRadius) + balloonRadius;
+                let newY = Math.random() * (canvas.height - 2 * balloonRadius) + balloonRadius;
 
                 // Add non-overlapping balloon to the array
                 balloons.push({
@@ -393,53 +367,23 @@
                 if (Math.random() < 0.5) speedX *= -1;
                 if (Math.random() < 0.5) speedY *= -1;
 
-                // Check if the newly spawned monster overlaps with existing ones
-                let overlapping = false;
-                for (let j = 0; j < monsters.length; j++) {
+                // Add monster to the array
+                monsters.push({
 
-                    let otherMonster = monsters[j];
-                    if (Math.abs(x - otherMonster.x) < minDistance && Math.abs(y - otherMonster.y) < minDistance) {
-                        
-                        overlapping = true;
-                        break;
+                    x: x,
+                    y: y,
+                    width: 40,
+                    height: 40,
+                    speedX: speedX,
+                    speedY: speedY
 
-                    }
-
-                }
-
-                if (!overlapping) {
-
-                    monsters.push({
-
-                        x: x,
-                        y: y,
-                        width: 40,
-                        height: 40,
-                        speedX: speedX,
-                        speedY: speedY
-
-                    });
-
-                } else {
-                    // If overlapping, try again
-                    i--;
-                }
+                });
 
             }
 
         }
 
-        /* Draw monsters (images) */
-        function drawMonsters() {
-
-            const monsterImage = new Image();
-            monsterImage.src = "{% static 'svg/monster.svg' %}"; // Path to the monster image
-
-            for (let monster of monsters) {
-                ctx.drawImage(monsterImage, monster.x, monster.y, monster.width, monster.height);
-            }
-            
-        }
+        
 
         function drawScore() {
 
@@ -449,6 +393,19 @@
 
         }
 
+        /* Draw monsters (images) */
+        function drawMonsters() {
+
+        const monsterImage = new Image();
+        monsterImage.src = "{% static 'svg/monster.svg' %}"; // Path to the monster image
+
+        for (let monster of monsters) {
+            ctx.drawImage(monsterImage, monster.x, monster.y, monster.width, monster.height);
+        }
+
+        }
+        
+        var collisionSound = new Audio("{% static 'mp3/collision.mp3' %}");
         /* Monster movement */
         function moveMonsters() {
 
@@ -462,13 +419,13 @@
                 if (monster.x < 0 || monster.x + monster.width > canvas.width) {
                     
                     monster.speedX *= -1;
-                
+                    collisionSound.play(); // Play collision sound
                 }
-
+                
                 if (monster.y < 0 || monster.y + monster.height > canvas.height) {
                     
                     monster.speedY *= -1;
-                
+                    collisionSound.play(); // Play collision sound
                 }
 
                 // Check collision with other monsters
@@ -479,7 +436,6 @@
                         let otherMonster = monsters[j];
 
                         if (monster.x < otherMonster.x + otherMonster.width &&
-                            
                             monster.x + monster.width > otherMonster.x &&
                             monster.y < otherMonster.y + otherMonster.height &&
                             monster.y + monster.height > otherMonster.y) {
@@ -490,7 +446,7 @@
                             monster.speedY = otherMonster.speedY;
                             otherMonster.speedX = tempSpeedX;
                             otherMonster.speedY = tempSpeedY;
-
+                            collisionSound.play(); // Play collision sound
                         }
 
                     }
@@ -550,6 +506,7 @@
                     monsterSpeedMax = 4;
                     player.x = canvas.width / 2; // Respawn player at the center
                     player.y = canvas.height / 2;
+                    collisionSound.play()
                     spawnBalloons();
                     spawnMonsters();
                     break;

@@ -1,0 +1,109 @@
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Голодные игры</title>
+
+    {% compress css %}
+
+        <link rel="stylesheet" href="{% static 'scss/game.scss' %}" type="text/x-scss">
+
+    {% endcompress %}
+
+    <script src="{% static 'packages/jquery-3.6.1.min.js' %}"></script>
+
+    <style>
+
+        @font-face {
+
+            font-family: RubikGlitchPop;
+            src: url("{% static 'fonts/RubikGlitchPop.ttf' %}");
+        
+        }
+
+        @font-face {
+
+            font-family: PressStart;
+            src: url("{% static 'fonts/PressStart.ttf' %}");
+
+        }
+
+        #gameCanvas {
+
+            background-image: url("{% static 'jpg/galaxy.jpg' %}")
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <script>
+
+
+    </script>
+
+<!--     <audio  controls autoplay loop>
+        <source src="{% static 'mp3/song.mp3' %}" type="audio/mpeg">
+    </audio> -->
+
+    <style>
+
+        @font-face {
+
+            font-family: RubikGlitchPop;
+            src: url("{% static 'fonts/RubikGlitchPop.ttf' %}");
+
+        }
+
+        @font-face {
+
+            font-family: PressStart;
+            src: url("{% static 'fonts/PressStart.ttf' %}");
+
+        }
+
+        #gameCanvas {
+
+            background-image: url("{% static 'jpg/galaxy.jpg' %}")
+
+        }
+
+        </style>
+
+    </style>
+
+    <div class="topnav">
+
+        <div class="logo"></div>
+
+    </div>
+
+    <h1 id="pageTitle">Регистриация</h1>
+    
+    <div id="registerForm">
+
+        <div class="style-btns">
+
+        </div>
+
+    </div>
+
+    <div id="playerColorMenu">
+
+
+
+    </div>
+
+</body>
+
+</html>
