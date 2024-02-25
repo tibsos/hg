@@ -291,11 +291,11 @@
                 let balloon = balloons[i];
 
                 if (!balloon.collected) {
-                    ctx.beginPath();
-                    ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = balloon.color;
-                    ctx.fill();
-                    ctx.closePath();
+                    sphereImg = new Image();
+                    sphereImg.src = "{% static 'svg/sphere.svg' %}"
+
+                    ctx.drawImage(sphereImg, balloon.x, balloon.y, balloon.radius * 2, balloon.radius * 2)
+
                 }
 
             }
