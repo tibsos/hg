@@ -14,19 +14,6 @@ ALLOWED_HOSTS = [
 
 ]
 
-PROJECT_APPS = [
-
-    'player',
-    'game',
-
-]
-
-THIRD_PARTY_APPS = [
-
-    'compressor',
-
-]
-
 INSTALLED_APPS = [
 
     # Django apps
@@ -42,6 +29,7 @@ INSTALLED_APPS = [
 
     # Project apps
     'game',
+    'player',
 
 ]
 

@@ -1,0 +1,53 @@
+/* line 1, static/scss/login.scss */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+
+/* line 10, static/scss/login.scss */
+input {
+  padding: 20px;
+  font-family: PressStart; }
+
+/* line 18, static/scss/login.scss */
+input:focus {
+  outline: none; }
+
+/* line 24, static/scss/login.scss */
+button {
+  border: none;
+  font-family: PressStart; }
+
+/* line 32, static/scss/login.scss */
+#pageTitle {
+  color: #fff;
+  font-family: RubikGlitchPop; }
+
+/* line 41, static/scss/login.scss */
+#registerForm .wrapper {
+  width: 250px;
+  height: 300px;
+  backdrop-filter: blur(11px) saturate(180%);
+  -webkit-backdrop-filter: blur(11px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3); }
+  /* line 54, static/scss/login.scss */
+  #registerForm .wrapper form .fields {
+    position: relative;
+    top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; }
+    /* line 64, static/scss/login.scss */
+    #registerForm .wrapper form .fields .field {
+      margin-bottom: 30px; }
+      /* line 68, static/scss/login.scss */
+      #registerForm .wrapper form .fields .field input {
+        width: 160px;
+        height: 20px;
+        border-radius: 1000px;
+        background: none;
+        border: 1px solid rgba(209, 213, 219, 0.3); }

@@ -1,0 +1,6 @@
+/* line 1, static/scss/login.scss */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
