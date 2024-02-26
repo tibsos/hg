@@ -1,0 +1,173 @@
+/* line 1, c:/users/h0x/desktop/hg/static/scss/game.scss */
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #fff;
+  /* Background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: RubikGlitchPop;
+  letter-spacing: 5px;
+  font-size: 48px;
+  color: #ff4500; }
+
+/* line 19, c:/users/h0x/desktop/hg/static/scss/game.scss */
+button {
+  font-family: PressStart;
+  width: 200px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 3px solid #ff4500;
+  border-radius: 500px;
+  color: #ff4500;
+  box-shadow: none;
+  cursor: pointer;
+  transition: 0.2s box-shadow ease-in-out; }
+
+/* line 42, c:/users/h0x/desktop/hg/static/scss/game.scss */
+button:hover {
+  box-shadow: 5px 5px; }
+
+/* line 48, c:/users/h0x/desktop/hg/static/scss/game.scss */
+h1 {
+  font-family: RubikGlitchPop; }
+
+/* line 54, c:/users/h0x/desktop/hg/static/scss/game.scss */
+span {
+  font-family: PressStart; }
+
+/* line 61, c:/users/h0x/desktop/hg/static/scss/game.scss */
+#logoSVG {
+  position: absolute;
+  bottom: 560px;
+  right: 900px;
+  transform: scale(0.4);
+  cursor: pointer; }
+
+/* line 74, c:/users/h0x/desktop/hg/static/scss/game.scss */
+.topnav {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: 50px; }
+  /* line 83, c:/users/h0x/desktop/hg/static/scss/game.scss */
+  .topnav #profile {
+    position: absolute;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 100px;
+    background: #fff;
+    border: 1px solid black;
+    cursor: pointer; }
+  /* line 100, c:/users/h0x/desktop/hg/static/scss/game.scss */
+  .topnav #profileDropdown {
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border-radius: 30px;
+    border: 1px solid black; }
+    /* line 117, c:/users/h0x/desktop/hg/static/scss/game.scss */
+    .topnav #profileDropdown .fields .field {
+      cursor: pointer; }
+  /* line 127, c:/users/h0x/desktop/hg/static/scss/game.scss */
+  .topnav .auth-btn {
+    position: absolute;
+    right: 50px; }
+    /* line 132, c:/users/h0x/desktop/hg/static/scss/game.scss */
+    .topnav .auth-btn #registerBtn {
+      width: 400px;
+      height: 50px; }
+
+/* line 144, c:/users/h0x/desktop/hg/static/scss/game.scss */
+#gameCanvas {
+  display: block;
+  background-image: url("/static/scss/galaxy.jpg");
+  background-size: cover;
+  /* Adjust as needed */
+  background-position: center;
+  /* Adjust as needed */ }
+
+/* line 153, c:/users/h0x/desktop/hg/static/scss/game.scss */
+#startMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+/* line 161, c:/users/h0x/desktop/hg/static/scss/game.scss */
+#playerColorMenu {
+  display: none;
+  flex-direction: column;
+  align-items: center; }
+
+/* line 169, c:/users/h0x/desktop/hg/static/scss/game.scss */
+#backgroundMenu {
+  display: none; }
+  /* line 173, c:/users/h0x/desktop/hg/static/scss/game.scss */
+  #backgroundMenu .backgrounds {
+    display: flex;
+    flex-direction: row; }
+    /* line 178, c:/users/h0x/desktop/hg/static/scss/game.scss */
+    #backgroundMenu .backgrounds .background {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 300px;
+      height: 150px;
+      margin-right: 30px;
+      border-radius: 50px; }
+      /* line 191, c:/users/h0x/desktop/hg/static/scss/game.scss */
+      #backgroundMenu .backgrounds .background img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50px;
+        cursor: pointer; }
+      /* line 204, c:/users/h0x/desktop/hg/static/scss/game.scss */
+      #backgroundMenu .backgrounds .background span {
+        margin-top: 20px;
+        font-size: 20px; }
+
+/* line 218, c:/users/h0x/desktop/hg/static/scss/game.scss */
+.style-btns {
+  margin-top: 30px; }
+  /* line 222, c:/users/h0x/desktop/hg/static/scss/game.scss */
+  .style-btns button {
+    width: 250px; }
+
+/* line 230, c:/users/h0x/desktop/hg/static/scss/game.scss */
+#colorSelectorContainer {
+  margin-top: 95x;
+  width: 400px; }
+
+/* line 237, c:/users/h0x/desktop/hg/static/scss/game.scss */
+.colorSelector {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 30px;
+  transition: transform 0.2s;
+  /* Added transform transition */
+  box-sizing: border-box;
+  /* Ensure border doesn't affect element size */
+  cursor: pointer; }
+
+/* line 254, c:/users/h0x/desktop/hg/static/scss/game.scss */
+.colorSelector:hover {
+  transform: scale(1.2); }
+
+/* line 260, c:/users/h0x/desktop/hg/static/scss/game.scss */
+#savePlayerColor {
+  margin-top: 70px; }
+
+/* line 267, c:/users/h0x/desktop/hg/static/scss/game.scss */
+.selected {
+  border: 2px solid black;
+  /* Black border around selected color */ }

@@ -19,9 +19,7 @@ body {
 button {
 
   font-family: PressStart;
-  
-  width: 200px;
-  
+    
   padding: 10px 20px;
   
   font-size: 18px;
@@ -70,6 +68,49 @@ span {
 
 }
 
+#profileDropdown {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  z-index: 10;
+
+  .wrapper {
+
+    font-family: PressStart;
+
+    position: relative;
+
+    width: 300px;
+    height: 400px;
+
+    background: #fff;
+
+    border-radius: 50px;
+
+    #closeProfileForm {
+
+      position: absolute;
+      right: 10px;
+      top: 20px;
+
+      cursor: pointer;
+
+    }
+
+  }
+
+}
 
 .topnav {
 
@@ -80,15 +121,69 @@ span {
   width: 100%;
   height: 50px;
 
-  .logo {
+  #profile {
 
-    #logoSVG {
-      
-      position: absolute;
-      top: 50px;
-      right: 30px;
+    position: absolute;
+    right: 20px;
 
-      transform: scale(0.05);
+    width: 45px;
+    height: 45px;
+
+    border-radius: 100px;
+
+    background: #fff;
+    border: 1px solid black;  
+
+    cursor: pointer;
+
+  }
+
+  #profileDropdown {
+
+    position: absolute;
+    right: 20px;
+    top: 70px;
+
+    width: 200px;
+    height: 150px;
+
+    display: none;
+    opacity: 0;
+
+    background: #fff;
+
+    border-radius: 30px;
+
+    border: 3px solid #ff4500;
+
+    .fields {
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      padding: 15px;
+
+      .field {
+
+        width: 170px;
+        height: 50px;
+
+        cursor: pointer;
+
+      }
+
+      a {
+
+        .field {
+
+          width: 170px;
+          height: 50px;
+
+        }
+
+      }
 
     }
 
@@ -138,7 +233,13 @@ span {
 
 #backgroundMenu {
 
+  position: relative;
+  bottom: 100px;
+
   display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   
   .backgrounds {
 
@@ -180,6 +281,13 @@ span {
       }
 
     }
+
+  }
+
+  #saveBackgroundBtn {
+
+    position: relative;
+    top: 100px;
 
   }
 

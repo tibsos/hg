@@ -5,11 +5,15 @@ body {
     align-items: center;
     flex-direction: column;
 
+    font-family: PressStart;
+
+    color: #fff;
+
 }
 
 input {
 
-    padding: 5px 20px 0 20px;
+    padding: 5px 20px 0 50px;
 
     font-family: PressStart;
 
@@ -45,12 +49,19 @@ button {
 
 }
 
-#pageTitle {
+a {
 
-    font-size: 53px;
+    text-decoration: none;
 
-    color: #fff;
-    font-family: PressStart;
+    #pageTitle {
+
+        font-size: 53px;
+    
+        color: #fff;
+        font-family: PressStart;
+    
+
+    }
 
 }
 
@@ -59,7 +70,7 @@ button {
     .wrapper {
 
         width: 280px;
-        height: 350px;
+        height: 360px;
 
         backdrop-filter: blur(11px) saturate(180%);
         -webkit-backdrop-filter: blur(11px) saturate(180%);
@@ -69,7 +80,8 @@ button {
 
         h2 {
 
-            text-align:center;
+            font-size: 20px;
+            text-align: center;
 
         }
 
@@ -87,14 +99,73 @@ button {
 
                 .field {
 
-                    .field-icon {
+                    margin-bottom: 20px;
 
-                        position: absolute;
-                        top: 20px;                        
+                    svg {
+
+                        fill: #fff;
 
                     }
 
-                    margin-bottom: 30px;
+                    #nameSVG {
+
+                        position: absolute;
+                        top: 18px;
+                        left: 20px;                        
+
+                    }
+
+                    #emailSVG {
+
+                        position: absolute;
+                        top: 85px;
+                        left: 15px;     
+                        
+                        transform: scale(0.8);
+
+                        fill: #fff;
+
+                    }
+
+                    #pwordSVG {
+
+                        position: absolute;
+                        top: 160px;
+                        left: 15px;     
+                        
+                        transform: scale(0.8);
+
+                    }
+
+                    #nameError {
+
+                        position: absolute;
+                        left: 240px;
+                        top: 20px;
+
+                        display: none;
+                        
+                    }
+
+                    #emailError {
+
+                        position: absolute;
+                        left: 240px;
+                        top: 96px;
+
+                        display: none;
+                        
+                    }
+
+                    #pwordError {
+
+                        position: absolute;
+                        left: 240px;
+                        top: 170px;
+                        
+                        display: none;
+                        
+                    }
 
                     input {
 
@@ -104,12 +175,44 @@ button {
                         border-radius: 1000px;
                         
                         background: none;
-                        border: 1px solid rgba(209, 213, 219, 0.3);
-                        
+                        border: none;                        
+                        box-shadow: inset 5px 5px 10px #453c6b,
+                            inset -5px -5px 10px #5d5191;
+
 
                     }
 
                 }
+
+            }
+
+        }
+
+        #loginError {
+
+            position: absolute;
+            left: 5px;
+            bottom: 130px;
+
+            span {
+
+                font-size: 10px;
+
+            }
+
+        }
+
+        #errorText {
+
+            position: absolute;
+            left: 5px;
+            bottom: 130px;
+
+            span {
+
+                font-size: 10px;
+
+                display: none;
 
             }
 
@@ -122,6 +225,12 @@ button {
         position: relative;
         top: 20px;
 
+        #registerBtn {
+
+            cursor: not-allowed;
+
+        }
+
         button {
 
             position: relative;
@@ -133,6 +242,20 @@ button {
             margin-top: 20px;
 
             border-radius: 50px;
+
+            background: none;
+            color: #fff;
+
+            box-shadow:  5px 5px 10px #453c6b,
+             -5px -5px 10px #5d5191;
+
+
+        }
+
+        button.in {
+
+            box-shadow: inset 5px 5px 10px #453c6b,
+                inset -5px -5px 10px #5d5191;
 
         }
 

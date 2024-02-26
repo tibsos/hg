@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 
 class Player(m.Model):
 
-    user = m.ForeignKey(User, on_delete = m.CASCADE)
+    user = m.ForeignKey(User, on_delete = m.CASCADE, related_name = 'player')
 
 @receiver(post_save, sender = User)
 def create_user_profile(sender, instance, created, **kwargs):

@@ -1,0 +1,111 @@
+/* line 1, c:/users/h0x/desktop/hg/static/scss/login.scss */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: PressStart;
+  color: #fff; }
+
+/* line 14, c:/users/h0x/desktop/hg/static/scss/login.scss */
+input {
+  padding: 5px 20px 0 50px;
+  font-family: PressStart;
+  color: #fff; }
+
+/* line 24, c:/users/h0x/desktop/hg/static/scss/login.scss */
+input::placeholder {
+  color: #fff; }
+
+/* line 30, c:/users/h0x/desktop/hg/static/scss/login.scss */
+input:focus::placeholder {
+  color: transparent; }
+
+/* line 36, c:/users/h0x/desktop/hg/static/scss/login.scss */
+input:focus {
+  outline: none; }
+
+/* line 42, c:/users/h0x/desktop/hg/static/scss/login.scss */
+button {
+  border: none;
+  font-family: PressStart;
+  cursor: pointer; }
+
+/* line 52, c:/users/h0x/desktop/hg/static/scss/login.scss */
+#pageTitle {
+  font-size: 53px;
+  color: #fff;
+  font-family: PressStart; }
+
+/* line 63, c:/users/h0x/desktop/hg/static/scss/login.scss */
+#registerForm .wrapper {
+  width: 280px;
+  height: 380px;
+  backdrop-filter: blur(11px) saturate(180%);
+  -webkit-backdrop-filter: blur(11px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3); }
+  /* line 74, c:/users/h0x/desktop/hg/static/scss/login.scss */
+  #registerForm .wrapper h2 {
+    font-size: 20px;
+    text-align: center; }
+  /* line 83, c:/users/h0x/desktop/hg/static/scss/login.scss */
+  #registerForm .wrapper form .fields {
+    position: relative;
+    top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; }
+    /* line 93, c:/users/h0x/desktop/hg/static/scss/login.scss */
+    #registerForm .wrapper form .fields .field {
+      margin-bottom: 30px; }
+      /* line 97, c:/users/h0x/desktop/hg/static/scss/login.scss */
+      #registerForm .wrapper form .fields .field svg {
+        fill: #fff; }
+      /* line 103, c:/users/h0x/desktop/hg/static/scss/login.scss */
+      #registerForm .wrapper form .fields .field #nameSVG {
+        position: absolute;
+        top: 18px;
+        left: 20px; }
+      /* line 111, c:/users/h0x/desktop/hg/static/scss/login.scss */
+      #registerForm .wrapper form .fields .field #pwordSVG {
+        position: absolute;
+        top: 95px;
+        left: 15px;
+        transform: scale(0.8); }
+      /* line 121, c:/users/h0x/desktop/hg/static/scss/login.scss */
+      #registerForm .wrapper form .fields .field #nameError {
+        position: absolute;
+        left: 240px;
+        top: 20px; }
+      /* line 129, c:/users/h0x/desktop/hg/static/scss/login.scss */
+      #registerForm .wrapper form .fields .field #pwordError {
+        position: absolute;
+        left: 240px;
+        top: 110px; }
+      /* line 137, c:/users/h0x/desktop/hg/static/scss/login.scss */
+      #registerForm .wrapper form .fields .field input {
+        width: 200px;
+        height: 50px;
+        border-radius: 1000px;
+        background: none;
+        border: none;
+        box-shadow: inset 5px 5px 10px #453c6b, inset -5px -5px 10px #5d5191; }
+
+/* line 162, c:/users/h0x/desktop/hg/static/scss/login.scss */
+#registerForm .buttons {
+  position: relative;
+  top: 20px; }
+  /* line 167, c:/users/h0x/desktop/hg/static/scss/login.scss */
+  #registerForm .buttons button {
+    position: relative;
+    left: 5px;
+    width: 270px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 50px;
+    background: none;
+    color: #fff;
+    box-shadow: 5px 5px 10px #453c6b, -5px -5px 10px #5d5191; }

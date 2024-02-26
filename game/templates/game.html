@@ -118,17 +118,63 @@
         </g>
         </svg>
 
+    <div id="profileDropdown">
+
+        <div class="wrapper">
+            
+            <div id="closeProfileForm">×</div>
+
+
+        </div>
+
+    </div>
+
     <div class="topnav">
 
-        <a href="/register" target="_blank" class="auth-btn">
+        {% if user.is_authenticated %}
 
-            <button id="registerBtn">
+            <div id="profile">
 
-                Зарегистрироваться
 
-            </button>
+            </div>
 
-        </a>
+            <div id="profileDropdown">
+
+                <div class="fields">
+
+                    <button class="field" id="profileBtn">
+
+                        <span>Профиль</span>
+
+                    </div>
+
+                    <a href="/logout">
+
+                        <button class="field" style="width: 170px; margin-left: 15px;">
+
+                            <span>Выйти</span>
+    
+                        </div>
+                        
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <a href="/register" target="_blank" class="auth-btn">
+
+                <button id="registerBtn">
+
+                    Зарегистрироваться
+
+                </button>
+
+            </a>
+
+        {% endif %}
 
     </div>
     
@@ -136,7 +182,7 @@
         
         <h1>Голодные игры</h1>
 
-        <button class="pulse" id="startButton">Играть</button>
+        <button class="pulse" id="startButton" style="width: 200px;">Играть</button>
 
         <div class="style-btns">
 
@@ -173,21 +219,73 @@
 
             <div class="background">
 
+                <img src="{% static 'jpg/universe.jpg' %}" alt="фон вселенная">
 
+                <span class="backgroundName">Вселенная</span>
 
             </div>
 
             <div class="background">
 
+                <img src="{% static 'jpg/lsd.jpg' %}" alt="фон лсд">
 
+                <span class="backgroundName">ЛСД</span>
 
             </div>
 
         </div>
 
+        <button id="saveBackgroundBtn">Сохранить</button>
+
     </div>
 
     <canvas id="gameCanvas"></canvas>
+
+    <!-- Profile dropdown -->
+    <script>
+
+        var dropdownShown = false;
+
+        $('#profile').click(function() {
+
+            if (dropdownShown) {
+
+                $('#profileDropdown').animate({
+                    
+                    'opacity': 0,
+                    
+                }, 250);
+
+                setTimeout(function() {
+
+                    $('#profileDropdown').hide();
+                    
+                }, 250);
+
+                dropdownShown = false;
+                
+            } else {
+                
+                $('#profileDropdown').show();
+                $('#profileDropdown').animate({
+                    
+                    'opacity': 1,
+                    
+                }, 250);
+
+                dropdownShown = true;
+                
+            }
+
+        });
+
+        $('#profileBtn').click(function() {
+
+
+
+        });
+
+    </script>
 
     <!-- Menus -->
     <script>
@@ -216,12 +314,29 @@
 
         });
 
+        /* Background */
+
         $('#changeBackground').click(function() {
 
             $('.topnav').hide();
             $('#startMenu').hide();
-            $('#backgroundMenu').show();
+            $('#backgroundMenu').css('display', 'flex');
 
+        });
+
+        $('.background').click(function() {
+
+            $('.background').css('border', 'none');
+
+            $(this).css('border', '3px solid black');
+
+        });
+
+        $('#saveBackgroundBtn').click(function() {
+
+            $("#backgroundMenu").hide();
+            $("#startMenu").show();
+            $(".topnav").show();
 
         });
 
@@ -394,10 +509,11 @@
                 let balloon = balloons[i];
 
                 if (!balloon.collected) {
+                     
                     sphereImg = new Image();
-                    sphereImg.src = "{% static 'svg/sphere.svg' %}"
+                    sphereImg.src = "{% static 'svg/crystal.svg' %}"
 
-                    ctx.drawImage(sphereImg, balloon.x, balloon.y, balloon.radius * 2, balloon.radius * 2)
+                    ctx.drawImage(sphereImg, balloon.x, balloon.y, 40, 40)
 
                 }
 
