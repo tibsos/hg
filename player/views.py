@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
 
 from django.contrib.auth.models import User
@@ -68,3 +68,15 @@ def check_username(request):
     else:
 
         return JsonResponse({'u': 'y'})
+    
+def change_background(request):
+
+    background = request.POST.get('b')
+
+    player = request.user.player
+
+    player.background = background
+    
+    player.save()
+
+    return HttpResponse('K')

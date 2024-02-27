@@ -39,7 +39,19 @@
 
         #gameCanvas {
 
-            background-image: url("{% static 'jpg/galaxy.jpg' %}")
+            {% if player.background == 'Космос' %}
+
+                background-image: url("{% static 'jpg/galaxy.jpg' %}");
+
+            {% elif player.background == 'ЛСД' %}
+
+                background-image: url("{% static 'jpg/lsd.jpg' %}");
+
+            {% elif player.background == 'Вселенная' %}
+
+                background-image: url("{% static 'jpg/universe.jpg' %}");
+
+            {% endif %}
 
         }
 
@@ -209,7 +221,7 @@
 
         <div class="backgrounds">
 
-            <div class="background">
+            <div class="background" id="cosmos">
 
                 <img src="{% static 'jpg/galaxy.jpg' %}" alt="фон галактика">
 
@@ -217,7 +229,7 @@
 
             </div>
 
-            <div class="background">
+            <div class="background" id="universe">
 
                 <img src="{% static 'jpg/universe.jpg' %}" alt="фон вселенная">
 
@@ -225,7 +237,7 @@
 
             </div>
 
-            <div class="background">
+            <div class="background" id="lsd">
 
                 <img src="{% static 'jpg/lsd.jpg' %}" alt="фон лсд">
 
@@ -240,6 +252,25 @@
     </div>
 
     <canvas id="gameCanvas"></canvas>
+
+    <!-- Initial background -->
+    <script>
+
+        {% if player.background == 'Космос' %}
+
+            $("#cosmos").css('border', '3px solid black');
+
+        {% elif player.background == 'ЛСД' %}
+
+            $("#lsd").css('border', '3px solid black');
+
+        {% elif player.background == 'Вселенная' %}
+
+            $("#universe").css('border', '3px solid black');
+
+        {% endif %}
+
+    </script>
 
     <!-- Profile dropdown -->
     <script>
@@ -327,8 +358,26 @@
         $('.background').click(function() {
 
             $('.background').css('border', 'none');
+            $('.background').prop('id', '')
 
             $(this).css('border', '3px solid black');
+            $(this).prop('id', 'selected');
+
+            imgName = $(this).children('span').text();
+            
+            if (imgName == 'Космос') {
+
+                $("#gameCanvas").css('background-image', 'url(' + "{% static 'jpg/galaxy.jpg' %}" + ')')
+                
+            } else if (imgName == 'ЛСД') {
+            
+                $("#gameCanvas").css('background-image', 'url(' + "{% static 'jpg/lsd.jpg' %}" + ')')
+                
+            } else {
+                
+                $("#gameCanvas").css('background-image', 'url(' + "{% static 'jpg/universe.jpg' %}" + ')')
+
+            }
 
         });
 
@@ -337,6 +386,31 @@
             $("#backgroundMenu").hide();
             $("#startMenu").show();
             $(".topnav").show();
+
+            $('.backgrounds').children('.background').each(function() {
+
+                if ($(this).prop('id') == 'selected') {
+
+                    background = $(this).children('.backgroundName').text();
+
+                }
+
+            });
+
+            $.ajax({
+
+                type: 'POST',
+
+                url: "/cb",
+
+                data: {
+
+                    'csrfmiddlewaretoken': "{{ csrf_token }}",
+                    'b': background,
+
+                }
+
+            })
 
         });
 
@@ -501,6 +575,45 @@
         
         }
 
+        
+        /* Spawn balloons at random locations */
+        function spawnBalloons() {
+            balloons = [];
+            const minDistance = 2 * balloonRadius; // Minimum distance between balloons
+            
+            for (let i = 0; i < totalBalloons; i++) {
+                let newX, newY, overlaps;
+
+                do {
+                    overlaps = false;
+                    newX = Math.random() * (canvas.width - 2 * balloonRadius) + balloonRadius;
+                    newY = Math.random() * (canvas.height - 2 * balloonRadius) + balloonRadius;
+
+                    // Check for overlaps with existing balloons
+                    for (let j = 0; j < balloons.length; j++) {
+                        const existingBalloon = balloons[j];
+                        const dx = newX - existingBalloon.x;
+                        const dy = newY - existingBalloon.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < minDistance) {
+                            overlaps = true;
+                            break;
+                        }
+                    }
+                } while (overlaps);
+
+                // Add non-overlapping balloon to the array
+                balloons.push({
+                    x: newX,
+                    y: newY,
+                    radius: balloonRadius,
+                    color: '#ffdf00', // Random color
+                    collected: false
+                });
+            }
+        }
+
+
         /* Draw balloons */
         function drawBalloons() {
 
@@ -521,83 +634,83 @@
 
         }
 
-        /* Spawn balloons at random locations */
-        function spawnBalloons() {
+        function spawnMonsters() {
+    monsters = [];
+    const padding = 40; // Padding to keep monsters away from the edges
+    const minDistance = 60; // Minimum distance between monsters
+    
+    for (let i = 0; i < totalMonsters; i++) {
+        let side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+        let x, y, speedX, speedY;
 
-            balloons = [];
-
-            for (let i = 0; i < totalBalloons; i++) {
-
-                let newX = Math.random() * (canvas.width - 2 * balloonRadius) + balloonRadius;
-                let newY = Math.random() * (canvas.height - 2 * balloonRadius) + balloonRadius;
-
-                // Add non-overlapping balloon to the array
-                balloons.push({
-
-                    x: newX,
-                    y: newY,
-                    radius: balloonRadius,
-                    color: '#ffdf00', // Random color
-                    collected: false
-                });
-
-            }
-
+        switch (side) {
+            case 0: // top edge
+                x = Math.random() * (canvas.width - padding * 2) + padding;
+                y = padding;
+                break;
+            case 1: // right edge
+                x = canvas.width - padding;
+                y = Math.random() * (canvas.height - padding * 2) + padding;
+                break;
+            case 2: // bottom edge
+                x = Math.random() * (canvas.width - padding * 2) + padding;
+                y = canvas.height - padding;
+                break;
+            case 3: // left edge
+                x = padding;
+                y = Math.random() * (canvas.height - padding * 2) + padding;
+                break;
         }
 
-        function spawnMonsters() {
+        speedX = monsterSpeed;
+        speedY = monsterSpeed;
 
-            monsters = [];
-            const padding = 40; // Padding to keep monsters away from the edges
-            const minDistance = 60; // Minimum distance between monsters
-            
-            for (let i = 0; i < totalMonsters; i++) {
+        /* Randomize travel direction of monsters */
+        if (Math.random() < 0.5) speedX *= -1;
+        if (Math.random() < 0.5) speedY *= -1;
 
-                let side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
-                let x, y, speedX, speedY;
+        const newMonster = {
+            x: x,
+            y: y,
+            width: 40,
+            height: 40,
+            speedX: speedX,
+            speedY: speedY
+        };
 
-                switch (side) {
+        let overlaps = false;
 
-                    case 0: // top edge
-                        x = Math.random() * (canvas.width - padding * 2) + padding;
-                        y = padding;
-                        break;
+        // Check for overlaps with existing monsters
+        for (let j = 0; j < monsters.length; j++) {
+            const existingMonster = monsters[j];
+            const dx = newMonster.x - existingMonster.x;
+            const dy = newMonster.y - existingMonster.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < minDistance) {
+                overlaps = true;
+                break;
+            }
+        }
 
-                    case 1: // right edge
-                        x = canvas.width - padding;
-                        y = Math.random() * (canvas.height - padding * 2) + padding;
-                        break;
+        // If overlap detected, reposition the monster
+        if (overlaps) {
+            i--; // Decrement i to retry spawning this monster
+        } else {
+            // Add monster to the array
+            monsters.push(newMonster);
+        }
+    }
+}
 
-                    case 2: // bottom edge
-                        x = Math.random() * (canvas.width - padding * 2) + padding;
-                        y = canvas.height - padding;
-                        break;
 
-                    case 3: // left edge
-                        x = padding;
-                        y = Math.random() * (canvas.height - padding * 2) + padding;
-                        break;
-                }
+         /* Draw monsters (images) */
+        function drawMonsters() {
 
-                speedX = monsterSpeed;
-                speedY = monsterSpeed;
+            const monsterImage = new Image();
+            monsterImage.src = "{% static 'svg/monster.svg' %}"; // Path to the monster image
 
-                /* Randomize travel direction of monsters */
-                if (Math.random() < 0.5) speedX *= -1;
-                if (Math.random() < 0.5) speedY *= -1;
-
-                // Add monster to the array
-                monsters.push({
-
-                    x: x,
-                    y: y,
-                    width: 40,
-                    height: 40,
-                    speedX: speedX,
-                    speedY: speedY
-
-                });
-
+            for (let monster of monsters) {
+                ctx.drawImage(monsterImage, monster.x, monster.y, monster.width, monster.height);
             }
 
         }
@@ -607,18 +720,6 @@
             ctx.font = "16px PressStart";
             ctx.fillStyle = "#FFF";
             ctx.fillText("Уровень: " + level, 20, 40);
-
-        }
-
-        /* Draw monsters (images) */
-        function drawMonsters() {
-
-        const monsterImage = new Image();
-        monsterImage.src = "{% static 'svg/monster.svg' %}"; // Path to the monster image
-
-        for (let monster of monsters) {
-            ctx.drawImage(monsterImage, monster.x, monster.y, monster.width, monster.height);
-        }
 
         }
         
@@ -678,11 +779,11 @@
 
             for (let balloon of balloons) {
 
-                if (!balloon.collected && player.x < balloon.x + balloon.radius &&
-                    
-                    player.x + player.width > balloon.x - balloon.radius &&
-                    player.y < balloon.y + balloon.radius &&
-                    player.y + player.height > balloon.y - balloon.radius) {
+                if (!balloon.collected && player.x < balloon.x + balloon.radius * 2 &&
+                    player.x + player.width > balloon.x - balloon.radius / 4 /* Left */ &&
+                    player.y < balloon.y + balloon.radius * 2 && /* Down */
+                    player.y + player.height > balloon.y - balloon.radius / 4) /* Up */ {
+
                     balloon.collected = true;
                     balloonsCollected++;
 

@@ -10,6 +10,8 @@ urlpatterns = [
     path('register', register, name = 'register'),
     path('logout', log_out, name = 'logout'),
 
-    path('check-username', check_username, name = 'check-username')
+    path('check-username', check_username, name = 'check-username'),
+
+    path('cb', change_background),
 
 ]

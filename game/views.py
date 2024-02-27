@@ -8,6 +8,8 @@ def game(request):
 
     if request.user.is_authenticated:
 
-        c['player'] = request.user.player
+        player = request.user.player
+
+        c['player'] = player
 
     return render(request, 'game.html', c)
