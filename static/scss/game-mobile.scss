@@ -1,0 +1,445 @@
+body {
+  
+    margin: 0;
+    overflow: hidden;
+    background-color: #fff; /* Background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    
+    font-family: RubikGlitchPop;
+    letter-spacing: 5px;
+    font-size: 48px;
+  
+    color: #ff4500;
+    
+  }
+  
+  button {
+  
+    font-family: PressStart;
+      
+    padding: 10px 20px;
+    
+    font-size: 25px;
+    
+    border: 3px solid #ff4500;
+    border-radius: 500px;
+    color: #ff4500;
+  
+    box-shadow: none;
+    
+    cursor: pointer;
+  
+    transition: 0.2s box-shadow ease-in-out;
+  
+  }
+  
+  
+  button:hover {
+  
+    box-shadow: 5px 5px;
+  
+  }
+  
+  h1 {
+  
+    font-family: RubikGlitchPop;
+    
+  }
+  
+  span {
+    
+    
+    font-family: PressStart;
+  
+  }
+  
+  #logoSVG {
+  
+    position: absolute;
+    bottom: 560px;
+    right: 900px;
+  
+    transform: scale(0.4);
+  
+    cursor: pointer;
+  
+  }
+  
+  #profileDropdown {
+  
+    position: fixed;
+    top: 0;
+    left: 0;
+  
+    width: 100%;
+    height: 100%;
+  
+    display: none;
+    justify-content: center;
+    align-items: center;
+  
+    background-color: rgba(0, 0, 0, 0.7);
+  
+    z-index: 10;
+  
+    .wrapper {
+  
+      font-family: PressStart;
+  
+      position: relative;
+  
+      width: 300px;
+      height: 400px;
+  
+      background: #fff;
+  
+      border-radius: 50px;
+  
+      #closeProfileForm {
+  
+        position: absolute;
+        right: 10px;
+        top: 20px;
+  
+        cursor: pointer;
+  
+      }
+  
+    }
+  
+  }
+  
+  .topnav {
+  
+    position: fixed;
+    top: 10px;
+    left: 0;
+  
+    width: 100%;
+    height: 50px;
+  
+    #profile {
+  
+      position: absolute;
+      right: 20px;
+  
+      width: 45px;
+      height: 45px;
+  
+      border-radius: 100px;
+  
+      background: #fff;
+      border: 1px solid black;  
+  
+      cursor: pointer;
+  
+    }
+  
+    #profileDropdown {
+  
+      position: absolute;
+      right: 20px;
+      top: 70px;
+  
+      width: 200px;
+      height: 150px;
+  
+      display: none;
+      opacity: 0;
+  
+      background: #fff;
+  
+      border-radius: 30px;
+  
+      border: 3px solid #ff4500;
+  
+      .fields {
+  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+  
+        padding: 15px;
+  
+        .field {
+  
+          width: 170px;
+          height: 50px;
+  
+          cursor: pointer;
+  
+        }
+  
+        a {
+  
+          .field {
+  
+            width: 170px;
+            height: 50px;
+  
+          }
+  
+        }
+  
+      }
+  
+    }
+  
+    .auth-btn {
+  
+      position: absolute;
+      right: 50px;
+  
+      #registerBtn {
+  
+        width: 400px;
+        height: 50px;
+  
+      }
+  
+    }
+  
+  
+  }
+  
+  #gameCanvas {
+  
+    display: block;
+    background-image: url('galaxy.jpg');
+    background-size: cover; /* Adjust as needed */
+    background-position: center; /* Adjust as needed */
+  
+  }
+  
+  #startMenu {
+  
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+
+        text-align: center;
+        font-size: 50px;
+
+    }
+  
+  }
+  
+  #playerColorMenu {
+
+    width: 100%;
+  
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  
+    .skins {
+  
+      position: relative;
+  
+      width: 100%;
+      height: 70px;
+  
+    overflow-x: scroll;
+
+      display: flex;
+      flex-direction: row;
+  
+      .skin {
+  
+        width: 50px;
+        height: 50px;
+  
+        margin-right: 30px;
+  
+        cursor: pointer;
+  
+        border-radius: 200px;
+  
+        transition: transform 0.5s ease-in-out;
+  
+        img {
+          
+          width: 50px;
+          height: 50px;
+  
+          object-fit: cover;
+  
+          border-radius: 500px;
+  
+  
+        }
+  
+      }
+  
+    }
+  
+  }
+  
+  #backgroundMenu {
+  
+    position: relative;
+    bottom: 100px;
+
+    width: 100%;
+  
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    .backgrounds {
+
+        width: 100%;
+        overflow-x: scroll;
+
+        display: flex;
+        flex-direction: row;
+  
+      .background {
+  
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  
+        width: 300px;
+        height: 150px;
+  
+        margin-right: 30px;
+  
+        border-radius: 50px;
+              
+        img {
+          
+          width: 100%;
+          height: 100%;
+          
+          object-fit: cover;
+  
+          border-radius: 50px;
+  
+          cursor: pointer;
+  
+        }
+  
+        span {
+  
+          margin-top: 20px;
+  
+          font-size: 20px;
+  
+        }
+  
+      }
+  
+    }
+  
+    #saveBackgroundBtn {
+  
+      position: relative;
+      top: 100px;
+  
+    }
+  
+  }
+  
+  .style-btns {
+  
+    margin-top: 100px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    button {
+
+        margin-bottom: 30px;
+  
+      width: 250px;
+  
+    }
+  
+  }
+  
+  #colorSelectorContainer {
+  
+    margin-top: 95x;
+    width: 400px;
+  
+  }
+  
+  .colorSelector {
+  
+    width: 50px;
+    height: 50px;
+  
+    border-radius: 50%;
+  
+    float: left;
+    margin-right: 30px;
+  
+    transition: transform 0.2s; /* Added transform transition */
+    box-sizing: border-box; /* Ensure border doesn't affect element size */
+    
+    cursor: pointer;
+  
+  }
+  
+  .colorSelector:hover {
+  
+    transform: scale(1.2);
+  
+  }
+  
+  #savePlayerColor {
+  
+    margin-top: 70px;
+  
+  }
+  
+  
+  .selected {
+  
+    border: 2px solid black; /* Black border around selected color */
+  
+  }
+
+  #joystick-container {
+
+    display: none;
+
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+}
+
+#joystick {
+    
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+
+#joystick:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

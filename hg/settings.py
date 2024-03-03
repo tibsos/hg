@@ -9,7 +9,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
 
     '.hungry-games.ru',
-    'localhost',
+    'localhost', 
     '127.0.0.1',
 
 ]

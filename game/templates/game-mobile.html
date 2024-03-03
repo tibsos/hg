@@ -1,0 +1,940 @@
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Голодные игры</title>
+    <meta name="description" content="Бесплатные онлайн игры на любой вкус! Погрузитесь в мир веселья и приключений прямо сейчас!">
+
+    <link rel="shortcut icon" href="{% static 'jpg/logo.jpg' %}" type="image/x-icon">
+
+    {% compress css %}
+
+        <link rel="stylesheet" href="{% static 'scss/game-mobile.scss' %}" type="text/x-scss">
+
+    {% endcompress %}
+
+    <script src="{% static 'packages/jquery-3.6.1.min.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/nipplejs@^0.8.0"></script>
+
+
+    <style>
+
+        @font-face {
+
+            font-family: RubikGlitchPop;
+            src: url("{% static 'fonts/RubikGlitchPop.ttf' %}");
+        
+        }
+
+        @font-face {
+
+            font-family: PressStart;
+            src: url("{% static 'fonts/Russo.ttf' %}");
+
+        }
+
+        #gameCanvas {
+
+            {% if background == 'Космос' %}
+
+                background-image: url("{% static 'jpg/galaxy.jpg' %}");
+
+            {% elif background == 'ЛСД' %}
+
+                background-image: url("{% static 'jpg/lsd.jpg' %}");
+
+            {% elif background == 'Вселенная' %}
+
+                background-image: url("{% static 'jpg/universe.jpg' %}");
+
+            {% endif %}
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    </div>
+    
+    <div id="startMenu">
+        
+        <h1>Голодные игры</h1>
+
+        <button class="pulse" id="startButton" style="width: 200px;">Играть</button>
+
+        <div class="style-btns">
+
+            <button id="changePlayerColor">Скин</button>
+            <button id="changeBackground">Фон</button>
+
+        </div>
+
+    </div>
+
+    <div id="playerColorMenu">
+
+        <h1>Скин</h1>
+
+        <div class="skins">
+
+            <div class="skin" id="alien">
+
+                <img src="{% static 'jpg/alien.jpg' %}" alt="Инопланетянин">
+                
+            </div>
+            
+            <div class="skin" id="demon">
+
+                <img src="{% static 'jpg/demon.jpg' %}" alt="Демон">
+                
+            </div>
+            
+            <div class="skin" id="human">
+                                
+                <img src="{% static 'jpg/human.jpg' %}" alt="Человек">
+                
+            </div>
+            
+            <div class="skin" id="vampire">
+
+                <img src="{% static 'jpg/vampire.jpg' %}" alt="Вампир">
+
+            </div>
+            
+            <div class="skin" id="ghost">
+
+                <img src="{% static 'jpg/ghost.jpg' %}" alt="Призрак">
+
+            </div>
+
+        </div>
+
+        <button id="savePlayerColor">Сохранить</button>
+
+    </div>
+
+    <div id="backgroundMenu">
+
+        <h1>Фоны</h1>
+
+        <div class="backgrounds">
+
+            <div class="background" id="cosmos">
+
+                <img src="{% static 'jpg/galaxy.jpg' %}" alt="фон галактика">
+
+                <span class="backgroundName">Космос</span>
+
+            </div>
+
+            <div class="background" id="universe">
+
+                <img src="{% static 'jpg/universe.jpg' %}" alt="фон вселенная">
+
+                <span class="backgroundName">Вселенная</span>
+
+            </div>
+
+            <div class="background" id="lsd">
+
+                <img src="{% static 'jpg/lsd.jpg' %}" alt="фон лсд">
+
+                <span class="backgroundName">ЛСД</span>
+
+            </div>
+
+        </div>
+
+        <button id="saveBackgroundBtn">Сохранить</button>
+
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    
+    <div id="joystick-container"></div>
+
+
+    <!-- Joystick logic -->
+
+<script>
+    window.addEventListener('load', function () {
+    // Initialize the joystick
+    var options = {
+        zone: document.getElementById('joystick-container'),
+        mode: 'static',
+        position: { left: '50%', top: '50%' },
+        color: 'red'
+    };
+    var joystick = nipplejs.create(options);
+
+    // Handle joystick movement
+    joystick.on('move', function (evt, data) {
+        // Calculate movement direction based on joystick angle
+        var angle = data.angle.degree;
+        var distance = data.distance;
+        
+        // Adjust player movement based on joystick input
+        if (distance > 20) { // Minimum distance threshold to consider joystick movement
+            var deltaX = Math.cos(angle * (Math.PI / 180));
+            var deltaY = Math.sin(angle * (Math.PI / 180));
+            movePlayer(deltaX, deltaY);
+        } else {
+            // Joystick not moved enough, stop player movement
+            player.vxl = 0;
+            player.vxr = 0;
+            player.vyu = 0;
+            player.vyd = 0;
+        }
+    });
+
+    // Function to handle player movement
+    function movePlayer(deltaX, deltaY) {
+        // Reset player's velocity
+        player.vxl = 0;
+        player.vxr = 0;
+        player.vyu = 0;
+        player.vyd = 0;
+
+        // Determine the dominant direction of movement
+        if (Math.abs(deltaX) > 0.5) {
+            if (deltaX > 0) {
+                player.vxr = player.speed; // Move right
+            } else {
+                player.vxl = -player.speed; // Move left
+            }
+        }
+
+        if (Math.abs(deltaY) > 0.5) {
+            if (deltaY > 0) {
+                player.vyd = -player.speed; // Move down
+            } else {
+                player.vyu = player.speed; // Move up
+            }
+        }
+    }
+});
+</script>
+
+    <!-- Initial background -->
+    <script>
+
+        {% if background == 'Космос' %}
+
+            $("#cosmos").css('border', '3px solid black');
+
+        {% elif background == 'ЛСД' %}
+
+            $("#lsd").css('border', '3px solid black');
+
+        {% elif background == 'Вселенная' %}
+
+            $("#universe").css('border', '3px solid black');
+
+        {% else %}
+
+            $("#cosmos").css('border', '3px solid black');
+            $("#gameCanvas").css('background-image', 'url(' + "{% static 'jpg/galaxy.jpg' %}" + ')');
+
+        {% endif %}
+
+    </script>
+
+    <!-- Profile dropdown -->
+    <script>
+
+        var dropdownShown = false;
+
+        $('#profile').click(function() {
+
+            if (dropdownShown) {
+
+                $('#profileDropdown').animate({
+                    
+                    'opacity': 0,
+                    
+                }, 250);
+
+                setTimeout(function() {
+
+                    $('#profileDropdown').hide();
+                    
+                }, 250);
+
+                dropdownShown = false;
+                
+            } else {
+                
+                $('#profileDropdown').show();
+                $('#profileDropdown').animate({
+                    
+                    'opacity': 1,
+                    
+                }, 250);
+
+                dropdownShown = true;
+                
+            }
+
+        });
+
+    </script>
+
+    <!-- Menus -->
+    <script>
+
+        $('#changePlayerColor').click(function() {
+
+            $('#startMenu').hide();
+
+            $('#playerColorMenu').css('display', 'flex');
+
+        });
+
+        $('#savePlayerColor').click(function() {
+
+            $('#playerColorMenu').hide();
+
+            $('#startMenu').css('display', 'flex');
+
+            $.ajax({
+
+                type: 'POST',
+
+                url: "/change-skin",
+
+                data: {
+
+                    'csrfmiddlewaretoken': "{{ csrf_token }}",
+
+                    s: skin,
+
+                }
+
+            })
+
+        });
+
+        $('#startButton').click(function() {
+
+            $('.topnav').hide();
+            $('#startMenu').hide();
+
+
+        });
+
+        $(document).keydown(function(e) {
+
+            if (e.keyCode == 27) {
+
+                $('#startMenu').show();
+                $('#gameCanvas').hide();
+                $('#playerColorMenu').hide();
+                $('#backgroundMenu').hide();
+
+                stopGame();
+
+            } 
+
+        });
+
+        /* Skin */
+
+        $('.skin').click(function() {
+
+            skin = $(this).prop('id');
+
+            $('.skin').children('img').css('border', 'none');
+            $(this).children('img').css('border', '3px solid black');
+
+        });
+
+        /* Skin */
+
+        $('.skin').on('mouseenter', function() {
+
+            $(this).css('transform' , 'scale(1.3)');
+
+        });
+
+        $('.skin').on('mouseleave', function() {
+
+            $(this).css('transform' , 'scale(1)');
+
+        });
+
+        /* Background */
+
+        $('#changeBackground').click(function() {
+
+            $('.topnav').hide();
+            $('#startMenu').hide();
+            $('#backgroundMenu').css('display', 'flex');
+
+        });
+
+        $('.background').click(function() {
+
+            $('.background').css('border', 'none');
+            $('.background').prop('id', '')
+
+            $(this).css('border', '3px solid black');
+            $(this).prop('id', 'selected');
+
+            imgName = $(this).children('span').text();
+            
+            if (imgName == 'Космос') {
+
+                $("#gameCanvas").css('background-image', 'url(' + "{% static 'jpg/galaxy.jpg' %}" + ')');
+                
+            } else if (imgName == 'ЛСД') {
+            
+                $("#gameCanvas").css('background-image', 'url(' + "{% static 'jpg/lsd.jpg' %}" + ')');
+                
+            } else {
+                
+                $("#gameCanvas").css('background-image', 'url(' + "{% static 'jpg/universe.jpg' %}" + ')');
+
+            }
+
+        });
+
+        $('#saveBackgroundBtn').click(function() {
+
+            $("#backgroundMenu").hide();
+            $("#startMenu").show();
+            $(".topnav").show();
+
+            $('.backgrounds').children('.background').each(function() {
+
+                if ($(this).prop('id') == 'selected') {
+
+                    background = $(this).children('.backgroundName').text();
+
+                }
+
+            });
+
+            $.ajax({
+
+                type: 'POST',
+
+                url: "/change-background",
+
+                data: {
+
+                    'csrfmiddlewaretoken': "{{ csrf_token }}",
+                    'b': background,
+
+                }
+
+            })
+
+        });
+
+    </script>
+
+    <!-- Game -->
+    <script>
+
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('startButton');
+        const startMenu = document.getElementById('startMenu');
+        const colorSelectorContainer = document.getElementById('colorSelectorContainer');
+
+        canvas.style.display = 'none'; // Hide canvas initially
+
+        const player = {
+
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            width: 30,
+            height: 30,
+            vxl: 0,
+            vxr: 0,
+            vyu: 0,
+            vyd: 0,
+            speed: 5,
+            color: '#FFFFFF' // Default player color (white)
+            
+        };
+
+        /* Player movement */ 
+
+        addEventListener('keydown', function (e) {
+            switch (e.code) {
+                case 'ArrowRight':
+                case 'KeyD':
+                    player.vxr = player.speed;
+                    break;
+                case 'ArrowLeft':
+                case 'KeyA':
+                    player.vxl = -player.speed;
+                    break;
+                case 'ArrowUp':
+                case 'KeyW':
+                    player.vyu = -player.speed;
+                    break;
+                case 'ArrowDown':
+                case 'KeyS':
+                    player.vyd = player.speed;
+                    break;
+            }
+        });
+        
+        addEventListener('keyup', function (e) {
+            switch (e.code) {
+                case 'ArrowRight':
+                case 'KeyD':
+                    player.vxr = 0;
+                    break;
+                case 'ArrowLeft':
+                case 'KeyA':
+                    player.vxl = 0;
+                    break;
+                case 'ArrowUp':
+                case 'KeyW':
+                    player.vyu = 0;
+                    break;
+                case 'ArrowDown':
+                case 'KeyS':
+                    player.vyd = 0;
+                    break;
+            }
+        });
+        
+
+        let level = 1;
+
+        /* Balloons */
+        const totalBalloons = 10; // Static amount of balloons
+        let balloons = [];
+        let balloonsCollected = 0;
+        let balloonRadius = 20; // Balloon radius
+
+        /* Monsters */
+        let monsters = [];
+        let totalMonsters = 2; // Initial number of monsters
+        let monsterSpeed = 2.5; // Monster speed
+        
+        let gameRunning = false;
+
+        startButton.addEventListener('click', startGame);
+
+        function startGame() {
+
+            gameRunning = true;
+            canvas.style.display = 'block';
+            $('#joystick-container').show()
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            player.x = canvas.width / 2;
+            player.y = canvas.height / 2;
+            spawnBalloons();
+            spawnMonsters();
+            updateGame();
+
+        }
+
+        function stopGame() {
+
+            gameRunning = false;
+
+        }
+
+        skin = "{{ skin }}"
+        
+        function drawPlayer() {
+
+            // Draw the player image
+            const playerImage = new Image();
+
+            if (skin == 'alien') {
+
+                playerImage.src = "{% static 'svg/players/alien.svg' %}"; // Path to your player image
+                
+                
+            } else if (skin == 'demon') {
+                                
+                playerImage.src = "{% static 'svg/players/demon.svg' %}"; // Path to your player image
+                
+            } else if (skin == 'human') {
+                
+                playerImage.src = "{% static 'svg/players/human.svg' %}"; // Path to your player image
+                
+            } else if (skin == 'vampire') {
+                
+                playerImage.src = "{% static 'svg/players/vampire.svg' %}"; // Path to your player image
+                
+            } else {
+                
+                playerImage.src = "{% static 'svg/players/ghost.svg' %}"; // Path to your player image
+
+            }
+
+            ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
+       
+        }
+
+        /* Make sure player can't go beyond canvas */
+        function movePlayer() {
+
+            if (player.x < 0) {
+
+                player.x = 0;
+
+            }
+
+            if (player.x + player.width > canvas.width) {
+
+                player.x = canvas.width - player.width;
+
+            }
+
+            if (player.y < 0) {
+
+                player.y = 0;
+
+            }
+
+            if (player.y + player.height > canvas.height) {
+
+                player.y = canvas.height - player.height;
+
+            }
+        
+        }
+
+        
+        function spawnBalloons() {
+            balloons = []; // Reset balloons array
+        
+            // Define the minimum distance between balloons and canvas edges
+            const minDistance = 2 * balloonRadius;
+        
+            // Loop to create 'totalBalloons' number of balloons
+            for (let i = 0; i < totalBalloons; i++) {
+                let newX, newY, overlaps;
+        
+                // Loop until a non-overlapping position for the balloon is found
+                do {
+                    overlaps = false; // Reset overlaps flag
+                    // Generate random coordinates within canvas bounds, ensuring minimum distance from edges
+                    newX = Math.random() * (canvas.width - 4 * balloonRadius) + 2 * balloonRadius;
+                    newY = Math.random() * (canvas.height - 4 * balloonRadius) + 2 * balloonRadius;
+        
+                    // Check for overlaps with existing balloons
+                    for (let j = 0; j < balloons.length; j++) {
+                        const existingBalloon = balloons[j];
+                        const dx = newX - existingBalloon.x;
+                        const dy = newY - existingBalloon.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        // If the distance between the new balloon and any existing balloon is less than 'minDistance',
+                        // mark overlaps as true and break the loop
+                        if (distance < minDistance) {
+                            overlaps = true;
+                            break;
+                        }
+                    }
+                } while (overlaps); // Repeat the loop until a non-overlapping position is found
+        
+                // Add the non-overlapping balloon to the balloons array
+                balloons.push({
+                    x: newX,
+                    y: newY,
+                    radius: balloonRadius,
+                    color: '#ffdf00', // Random color
+                    collected: false
+                });
+            }
+        }
+        
+        
+
+
+        /* Draw balloons */
+        function drawBalloons() {
+
+            for (let i = 0; i < balloons.length; i++) {
+
+                let balloon = balloons[i];
+
+                if (!balloon.collected) {
+                     
+                    sphereImg = new Image();
+                    sphereImg.src = "{% static 'svg/crystal.svg' %}"
+
+                    ctx.drawImage(sphereImg, balloon.x, balloon.y, 40, 40)
+
+                }
+
+            }
+
+        }
+
+        function spawnMonsters() {
+    monsters = [];
+    const padding = 40; // Padding to keep monsters away from the edges
+    const minDistance = 60; // Minimum distance between monsters
+    
+    for (let i = 0; i < totalMonsters; i++) {
+        let side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+        let x, y, speedX, speedY;
+
+        switch (side) {
+            case 0: // top edge
+                x = Math.random() * (canvas.width - padding * 2) + padding;
+                y = padding;
+                break;
+            case 1: // right edge
+                x = canvas.width - padding;
+                y = Math.random() * (canvas.height - padding * 2) + padding;
+                break;
+            case 2: // bottom edge
+                x = Math.random() * (canvas.width - padding * 2) + padding;
+                y = canvas.height - padding;
+                break;
+            case 3: // left edge
+                x = padding;
+                y = Math.random() * (canvas.height - padding * 2) + padding;
+                break;
+        }
+
+        speedX = monsterSpeed;
+        speedY = monsterSpeed;
+
+        /* Randomize travel direction of monsters */
+        if (Math.random() < 0.5) speedX *= -1;
+        if (Math.random() < 0.5) speedY *= -1;
+
+        const newMonster = {
+            x: x,
+            y: y,
+            width: 40,
+            height: 40,
+            speedX: speedX,
+            speedY: speedY
+        };
+
+        let overlaps = false;
+
+        // Check for overlaps with existing monsters
+        for (let j = 0; j < monsters.length; j++) {
+            const existingMonster = monsters[j];
+            const dx = newMonster.x - existingMonster.x;
+            const dy = newMonster.y - existingMonster.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < minDistance) {
+                overlaps = true;
+                break;
+            }
+        }
+
+        // If overlap detected, reposition the monster
+        if (overlaps) {
+            i--; // Decrement i to retry spawning this monster
+        } else {
+            // Add monster to the array
+            monsters.push(newMonster);
+        }
+    }
+}
+
+
+         /* Draw monsters (images) */
+        function drawMonsters() {
+
+            const monsterImage = new Image();
+            monsterImage.src = "{% static 'svg/monster.svg' %}"; // Path to the monster image
+
+            for (let monster of monsters) {
+                ctx.drawImage(monsterImage, monster.x, monster.y, monster.width, monster.height);
+            }
+
+        }
+
+        function drawScore() {
+
+            ctx.font = "20px PressStart";
+            ctx.fillStyle = "#FFF";
+            
+            {% if background == 'ЛСД' %}
+
+                ctx.fillText("Уровень: " + level, 20, ctx.canvas.height - 20);
+
+            {% else %}
+
+                ctx.fillText("Уровень: " + level, 20, 40);
+        
+            {% endif %}
+
+        }
+        
+        
+        /* Monster movement */
+        function moveMonsters() {
+
+            for (let i = 0; i < monsters.length; i++) {
+
+                let monster = monsters[i];
+                monster.x += monster.speedX;
+                monster.y += monster.speedY;
+
+                // Reverse direction if hitting canvas edges
+                if (monster.x < 0 || monster.x + monster.width > canvas.width) {
+                    
+                    monster.speedX *= -1;
+                }
+                
+                if (monster.y < 0 || monster.y + monster.height > canvas.height) {
+                    
+                    monster.speedY *= -1;
+                }
+
+                // Check collision with other monsters
+                for (let j = 0; j < monsters.length; j++) {
+
+                    if (i !== j) {
+
+                        let otherMonster = monsters[j];
+
+                        if (monster.x < otherMonster.x + otherMonster.width &&
+                            monster.x + monster.width > otherMonster.x &&
+                            monster.y < otherMonster.y + otherMonster.height &&
+                            monster.y + monster.height > otherMonster.y) {
+                            // Bounce off each other
+                            let tempSpeedX = monster.speedX;
+                            let tempSpeedY = monster.speedY;
+                            monster.speedX = otherMonster.speedX;
+                            monster.speedY = otherMonster.speedY;
+                            otherMonster.speedX = tempSpeedX;
+                            otherMonster.speedY = tempSpeedY;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        function checkCollision() {
+
+            for (let balloon of balloons) {
+
+                if (!balloon.collected && player.x < balloon.x + balloon.radius * 2 &&
+                    player.x + player.width > balloon.x - balloon.radius / 4 /* Left */ &&
+                    player.y < balloon.y + balloon.radius * 2 && /* Down */
+                    player.y + player.height > balloon.y - balloon.radius / 4) /* Up */ {
+
+                    balloon.collected = true;
+                    balloonsCollected++;
+
+                    /* New level if all balloons collected */
+                    if (balloonsCollected === totalBalloons) {
+                        
+                        level++;
+                        balloonsCollected = 0;
+                        totalMonsters += 2;
+
+                        /* Respawn player at the center */
+                        player.x = canvas.width / 2;
+                        player.y = canvas.height / 2;
+
+                        spawnBalloons();
+                        spawnMonsters();
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        function checkMonsterCollision() {
+
+            for (let monster of monsters) {
+
+                if (player.x < monster.x + monster.width &&
+                    player.x + player.width > monster.x &&
+                    player.y < monster.y + monster.height &&
+                    player.y + player.height > monster.y) {
+                    level = 1;
+                    balloonsCollected = 0;
+                    totalMonsters = 2;
+                    monsterSpeedMin = 1;
+                    monsterSpeedMax = 4;
+                    player.x = canvas.width / 2; // Respawn player at the center
+                    player.y = canvas.height / 2;
+                    spawnBalloons();
+                    spawnMonsters();
+
+                    $.ajax({
+
+                        type: 'POST',
+
+                        url: "/game-count",
+
+                        data: {
+
+                            'csrfmiddlewaretoken': "{{ csrf_token }}",
+
+                        }
+                        
+                    });
+
+                    break;
+
+                }
+
+            }
+
+        }
+
+        function updateGame() {
+
+            if (!gameRunning) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // clear entire canvas
+            player.x += player.vxl;
+            player.x += player.vxr;
+            player.y += player.vyu;
+            player.y += player.vyd;
+
+            drawPlayer();
+            movePlayer();
+
+            drawBalloons();
+
+            drawMonsters();
+            moveMonsters();
+
+            drawScore();
+
+            checkCollision();
+
+            checkMonsterCollision();
+
+            requestAnimationFrame(updateGame);
+
+        }
+
+    </script>
+
+</body>
+
+</html>

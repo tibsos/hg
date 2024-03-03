@@ -159,42 +159,6 @@
 
     <canvas id="gameCanvas"></canvas>
 
-    <div id="joystick-container">
-        <div id="joystick"></div>
-    </div>
-
-    <style>
-
-        #joystick-container {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-        }
-
-        #joystick {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-            position: relative;
-            z-index: 2;
-        }
-
-        #joystick:after {
-            content: "";
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-
-    </style>
-
     <!-- Initial background -->
     <script>
 
@@ -505,6 +469,7 @@
 
             gameRunning = true;
             canvas.style.display = 'block';
+            $('#arrowButtons').show();
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             player.x = canvas.width / 2;
