@@ -1,0 +1,241 @@
+/* line 1, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #fff;
+  /* Background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: RubikGlitchPop;
+  letter-spacing: 5px;
+  font-size: 48px;
+  color: #ff4500; }
+
+/* line 19, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+button {
+  font-family: PressStart;
+  padding: 10px 20px;
+  font-size: 25px;
+  border: 3px solid #ff4500;
+  border-radius: 500px;
+  color: #ff4500;
+  box-shadow: none;
+  cursor: pointer;
+  transition: 0.2s box-shadow ease-in-out; }
+
+/* line 40, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+button:hover {
+  box-shadow: 5px 5px; }
+
+/* line 46, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+h1 {
+  font-family: RubikGlitchPop; }
+
+/* line 52, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+span {
+  font-family: PressStart; }
+
+/* line 59, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+#logoSVG {
+  position: absolute;
+  bottom: 560px;
+  right: 900px;
+  transform: scale(0.4);
+  cursor: pointer; }
+
+/* line 71, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+#profileDropdown {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10; }
+  /* line 88, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+  #profileDropdown .wrapper {
+    font-family: PressStart;
+    position: relative;
+    width: 300px;
+    height: 400px;
+    background: #fff;
+    border-radius: 50px; }
+    /* line 101, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+    #profileDropdown .wrapper #closeProfileForm {
+      position: absolute;
+      right: 10px;
+      top: 20px;
+      cursor: pointer; }
+
+/* line 115, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+.topnav {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: 50px; }
+  /* line 124, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+  .topnav #profile {
+    position: absolute;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 100px;
+    background: #fff;
+    border: 1px solid black;
+    cursor: pointer; }
+  /* line 141, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+  .topnav #profileDropdown {
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    width: 200px;
+    height: 150px;
+    display: none;
+    opacity: 0;
+    background: #fff;
+    border-radius: 30px;
+    border: 3px solid #ff4500; }
+    /* line 159, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+    .topnav #profileDropdown .fields {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 15px; }
+      /* line 168, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+      .topnav #profileDropdown .fields .field {
+        width: 170px;
+        height: 50px;
+        cursor: pointer; }
+      /* line 179, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+      .topnav #profileDropdown .fields a .field {
+        width: 170px;
+        height: 50px; }
+  /* line 192, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+  .topnav .auth-btn {
+    position: absolute;
+    right: 50px; }
+    /* line 197, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+    .topnav .auth-btn #registerBtn {
+      width: 400px;
+      height: 50px; }
+
+/* line 209, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+#gameCanvas {
+  display: block;
+  background-image: url("/static/scss/galaxy.jpg");
+  background-size: cover;
+  /* Adjust as needed */
+  background-position: center;
+  /* Adjust as needed */ }
+
+/* line 218, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+#startMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+/* line 226, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+#playerColorMenu {
+  display: none;
+  flex-direction: column;
+  align-items: center; }
+  /* line 232, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+  #playerColorMenu .skins {
+    position: relative;
+    width: 300px;
+    height: 70px;
+    display: flex;
+    flex-direction: row; }
+    /* line 242, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+    #playerColorMenu .skins .skin {
+      width: 50px;
+      height: 50px;
+      margin-right: 30px;
+      cursor: pointer; }
+      /* line 251, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+      #playerColorMenu .skins .skin img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover; }
+
+/* line 267, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+#backgroundMenu {
+  position: relative;
+  bottom: 100px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; }
+  /* line 277, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+  #backgroundMenu .backgrounds {
+    display: flex;
+    flex-direction: row; }
+    /* line 282, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+    #backgroundMenu .backgrounds .background {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 300px;
+      height: 150px;
+      margin-right: 30px;
+      border-radius: 50px; }
+      /* line 295, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+      #backgroundMenu .backgrounds .background img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50px;
+        cursor: pointer; }
+      /* line 308, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+      #backgroundMenu .backgrounds .background span {
+        margin-top: 20px;
+        font-size: 20px; }
+  /* line 320, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+  #backgroundMenu #saveBackgroundBtn {
+    position: relative;
+    top: 100px; }
+
+/* line 329, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+.style-btns {
+  margin-top: 30px; }
+  /* line 333, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+  .style-btns button {
+    width: 250px; }
+
+/* line 341, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+#colorSelectorContainer {
+  margin-top: 95x;
+  width: 400px; }
+
+/* line 348, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+.colorSelector {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 30px;
+  transition: transform 0.2s;
+  /* Added transform transition */
+  box-sizing: border-box;
+  /* Ensure border doesn't affect element size */
+  cursor: pointer; }
+
+/* line 365, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+.colorSelector:hover {
+  transform: scale(1.2); }
+
+/* line 371, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+#savePlayerColor {
+  margin-top: 70px; }
+
+/* line 378, c:/users/h0x/desktop/songs/hg/static/scss/game.scss */
+.selected {
+  border: 2px solid black;
+  /* Black border around selected color */ }

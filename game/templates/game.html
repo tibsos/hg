@@ -33,21 +33,21 @@
         @font-face {
 
             font-family: PressStart;
-            src: url("{% static 'fonts/PressStart.ttf' %}");
+            src: url("{% static 'fonts/Russo.ttf' %}");
 
         }
 
         #gameCanvas {
 
-            {% if player.background == 'Космос' %}
+            {% if background == 'Космос' %}
 
                 background-image: url("{% static 'jpg/galaxy.jpg' %}");
 
-            {% elif player.background == 'ЛСД' %}
+            {% elif background == 'ЛСД' %}
 
                 background-image: url("{% static 'jpg/lsd.jpg' %}");
 
-            {% elif player.background == 'Вселенная' %}
+            {% elif background == 'Вселенная' %}
 
                 background-image: url("{% static 'jpg/universe.jpg' %}");
 
@@ -158,25 +158,58 @@
 
     <canvas id="gameCanvas"></canvas>
 
+    <div id="joystick-container">
+        <div id="joystick"></div>
+    </div>
+
+    <style>
+
+#joystick-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+#joystick {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+
+#joystick:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+    </style>
+
     <!-- Initial background -->
     <script>
 
-        {% if player.background == 'Космос' %}
+        {% if background == 'Космос' %}
 
             $("#cosmos").css('border', '3px solid black');
 
-        {% elif player.background == 'ЛСД' %}
+        {% elif background == 'ЛСД' %}
 
             $("#lsd").css('border', '3px solid black');
 
-        {% elif player.background == 'Вселенная' %}
+        {% elif background == 'Вселенная' %}
 
             $("#universe").css('border', '3px solid black');
 
-        {% endif %}
-
-
-        {% if not request.user.is_authenticated %}
+        {% else %}
 
             $("#cosmos").css('border', '3px solid black');
             $("#gameCanvas").css('background-image', 'url(' + "{% static 'jpg/galaxy.jpg' %}" + ')');
@@ -223,12 +256,6 @@
 
         });
 
-        $('#profileBtn').click(function() {
-
-
-
-        });
-
     </script>
 
     <!-- Menus -->
@@ -255,6 +282,19 @@
             $('.topnav').hide();
             $('#startMenu').hide();
 
+
+        });
+
+        $(document).keydown(function(e) {
+
+            if (e.keyCode == 27) {
+
+                $('#startMenu').show();
+                $('#gameCanvas').hide();
+
+                stopGame();
+
+            } 
 
         });
 
@@ -314,7 +354,7 @@
 
                 type: 'POST',
 
-                url: "/cb",
+                url: "/change-background",
 
                 data: {
 
@@ -428,6 +468,12 @@
             spawnBalloons();
             spawnMonsters();
             updateGame();
+
+        }
+
+        function stopGame() {
+
+            gameRunning = false;
 
         }
 
@@ -619,13 +665,22 @@
 
         function drawScore() {
 
-            ctx.font = "16px PressStart";
+            ctx.font = "20px PressStart";
             ctx.fillStyle = "#FFF";
-            ctx.fillText("Уровень: " + level, 20, 40);
+            
+            {% if background == 'ЛСД' %}
+
+                ctx.fillText("Уровень: " + level, 20, ctx.canvas.height - 20);
+
+            {% else %}
+
+                ctx.fillText("Уровень: " + level, 20, 40);
+        
+            {% endif %}
 
         }
         
-        var collisionSound = new Audio("{% static 'mp3/collision.mp3' %}");
+        
         /* Monster movement */
         function moveMonsters() {
 
@@ -639,13 +694,11 @@
                 if (monster.x < 0 || monster.x + monster.width > canvas.width) {
                     
                     monster.speedX *= -1;
-                    collisionSound.play(); // Play collision sound
                 }
                 
                 if (monster.y < 0 || monster.y + monster.height > canvas.height) {
                     
                     monster.speedY *= -1;
-                    collisionSound.play(); // Play collision sound
                 }
 
                 // Check collision with other monsters
@@ -666,7 +719,7 @@
                             monster.speedY = otherMonster.speedY;
                             otherMonster.speedX = tempSpeedX;
                             otherMonster.speedY = tempSpeedY;
-                            collisionSound.play(); // Play collision sound
+
                         }
 
                     }
@@ -726,7 +779,6 @@
                     monsterSpeedMax = 4;
                     player.x = canvas.width / 2; // Respawn player at the center
                     player.y = canvas.height / 2;
-                    collisionSound.play()
                     spawnBalloons();
                     spawnMonsters();
                     break;

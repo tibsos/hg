@@ -29,7 +29,6 @@ INSTALLED_APPS = [
 
     # Project apps
     'game',
-    'player',
 
 ]
 

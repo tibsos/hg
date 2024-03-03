@@ -6,4 +6,6 @@ urlpatterns = [
 
     path('', game, name = 'game'),
 
+    path('change-background', change_background, name = 'change-background'),
+
 ]
