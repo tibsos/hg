@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Голодные игры</title>
+    <meta name="description" content="Бесплатные онлайн игры на любой вкус! Погрузитесь в мир веселья и приключений прямо сейчас!">
 
     <link rel="shortcut icon" href="{% static 'jpg/logo.jpg' %}" type="image/x-icon">
 
@@ -84,33 +85,33 @@
 
         <div class="skins">
 
-            <div class="skin">
+            <div class="skin" id="alien">
 
-                <img src="{% static 'jpg/alien.jpg' %}" alt="Alien">
+                <img src="{% static 'jpg/alien.jpg' %}" alt="Инопланетянин">
+                
+            </div>
+            
+            <div class="skin" id="demon">
+
+                <img src="{% static 'jpg/demon.jpg' %}" alt="Демон">
+                
+            </div>
+            
+            <div class="skin" id="human">
+                                
+                <img src="{% static 'jpg/human.jpg' %}" alt="Человек">
+                
+            </div>
+            
+            <div class="skin" id="vampire">
+
+                <img src="{% static 'jpg/vampire.jpg' %}" alt="Вампир">
 
             </div>
+            
+            <div class="skin" id="ghost">
 
-            <div class="skin">
-
-                <img src="{% static 'jpg/demon.jpg' %}" alt="Alien">
-
-            </div>
-
-            <div class="skin">
-
-                <img src="{% static 'jpg/human.jpg' %}" alt="Alien">
-
-            </div>
-
-            <div class="skin">
-
-                <img src="{% static 'jpg/vampire.jpg' %}" alt="Alien">
-
-            </div>
-
-            <div class="skin">
-
-                <img src="{% static 'jpg/alien.jpg' %}" alt="Alien">
+                <img src="{% static 'jpg/ghost.jpg' %}" alt="Призрак">
 
             </div>
 
@@ -164,32 +165,32 @@
 
     <style>
 
-#joystick-container {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-}
+        #joystick-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
 
-#joystick {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    position: relative;
-    z-index: 2;
-}
+        #joystick {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
 
-#joystick:after {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
+        #joystick:after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
 
 
     </style>
@@ -275,6 +276,22 @@
 
             $('#startMenu').css('display', 'flex');
 
+            $.ajax({
+
+                type: 'POST',
+
+                url: "/change-skin",
+
+                data: {
+
+                    'csrfmiddlewaretoken': "{{ csrf_token }}",
+
+                    s: skin,
+
+                }
+
+            })
+
         });
 
         $('#startButton').click(function() {
@@ -291,10 +308,37 @@
 
                 $('#startMenu').show();
                 $('#gameCanvas').hide();
+                $('#playerColorMenu').hide();
+                $('#backgroundMenu').hide();
 
                 stopGame();
 
             } 
+
+        });
+
+        /* Skin */
+
+        $('.skin').click(function() {
+
+            skin = $(this).prop('id');
+
+            $('.skin').children('img').css('border', 'none');
+            $(this).children('img').css('border', '3px solid black');
+
+        });
+
+        /* Skin */
+
+        $('.skin').on('mouseenter', function() {
+
+            $(this).css('transform' , 'scale(1.3)');
+
+        });
+
+        $('.skin').on('mouseleave', function() {
+
+            $(this).css('transform' , 'scale(1)');
 
         });
 
@@ -477,14 +521,39 @@
 
         }
 
+        skin = "{{ skin }}"
+        
         function drawPlayer() {
+
             // Draw the player image
             const playerImage = new Image();
-            playerImage.src = "{% static 'svg/players/alien.svg' %}"; // Path to your player image
-            ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
-        }
 
-        
+            if (skin == 'alien') {
+
+                playerImage.src = "{% static 'svg/players/alien.svg' %}"; // Path to your player image
+                
+                
+            } else if (skin == 'demon') {
+                                
+                playerImage.src = "{% static 'svg/players/demon.svg' %}"; // Path to your player image
+                
+            } else if (skin == 'human') {
+                
+                playerImage.src = "{% static 'svg/players/human.svg' %}"; // Path to your player image
+                
+            } else if (skin == 'vampire') {
+                
+                playerImage.src = "{% static 'svg/players/vampire.svg' %}"; // Path to your player image
+                
+            } else {
+                
+                playerImage.src = "{% static 'svg/players/ghost.svg' %}"; // Path to your player image
+
+            }
+
+            ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
+       
+        }
 
         /* Make sure player can't go beyond canvas */
         function movePlayer() {
@@ -781,6 +850,21 @@
                     player.y = canvas.height / 2;
                     spawnBalloons();
                     spawnMonsters();
+
+                    $.ajax({
+
+                        type: 'POST',
+
+                        url: "/game-count",
+
+                        data: {
+
+                            'csrfmiddlewaretoken': "{{ csrf_token }}",
+
+                        }
+                        
+                    });
+
                     break;
 
                 }
